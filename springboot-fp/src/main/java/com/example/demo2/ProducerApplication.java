@@ -1,6 +1,6 @@
 package com.example.demo2;
 
-import java.util.Arrays;
+import java.util.*;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 @EnableDiscoveryClient
 public class ProducerApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ProducerApplication.class, args);
 	}
 

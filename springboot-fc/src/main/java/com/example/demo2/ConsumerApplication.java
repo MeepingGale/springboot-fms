@@ -1,12 +1,6 @@
 package com.example.demo2;
 
 import java.util.Arrays;
-import java.nio.charset.StandardCharsets;
-
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.DeliverCallback;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,24 +13,8 @@ import org.springframework.context.annotation.Bean;
 @EnableDiscoveryClient
 public class ConsumerApplication {
 
-	private final static String QUEUE_NAME = "food_queue";
-
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ConsumerApplication.class, args);
-
-		ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
-
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        System.out.println(" [CONSUMER] Waiting for messages.");
-
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
-            System.out.println(" [CONSUMER] Received '" + message + "'");
-        };
-        channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });
 	}
 
 	@Bean

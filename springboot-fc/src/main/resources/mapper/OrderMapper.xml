@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo2.mapper.FoodMapper">
-    <select id="getAllFood" resultType="com.example.demo2.model.Food">
-        SELECT * FROM public."Food" ORDER BY id
+<mapper namespace="com.example.demo2.mapper.OrderMapper">
+    <select id="getAllOrder" resultType="com.example.demo2.model.Order">
+        SELECT * FROM public."order" ORDER BY id
     </select>
-    <select id="getFoodById" resultType="com.example.demo2.model.Food">
-        SELECT * FROM public."Food" WHERE id = #{id} ORDER BY id
+    <select id="getOrderById" resultType="com.example.demo2.model.Order">
+        SELECT * FROM public."order" WHERE id = #{id} ORDER BY id
     </select>
-    <insert id="addNewFood" parameterType="com.example.demo2.model.Food">
-        INSERT INTO public."Food"("name", "calories", "price", "currency", "date_created", "quantity")
-        VALUES (#{name}, #{calories}, #{price}, #{currency}, #{date_created}, #{quantity});
+    <insert id="addNewOrder" parameterType="com.example.demo2.model.Order">
+        INSERT INTO public."order"("name", "quantity", "date_created")
+        VALUES (#{name}, #{quantity}, #{date_created});
     </insert>
-    <update id="updateExistingFood" parameterType="com.example.demo2.model.Food">
-        UPDATE public."Food"
+    <update id="updateExistingOrder" parameterType="com.example.demo2.model.Order">
+        UPDATE public."order"
         <set>
             <if test="name != null">
                     name = #{name},
@@ -33,8 +33,8 @@
         WHERE
         id = #{id}
     </update>
-    <delete id="deleteExistingFood" parameterType="int">
-        DELETE FROM public."Food"
+    <delete id="deleteExistingOrder" parameterType="int">
+        DELETE FROM public."order"
         WHERE id = #{id}
     </delete>
 </mapper>

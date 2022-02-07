@@ -5,12 +5,9 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Food {
+public class Order {
     public int id;
     public String name;
     public int quantity;
-    public int calories;
-    public double price;
-    public String currency;
     public Date date_created;
 }

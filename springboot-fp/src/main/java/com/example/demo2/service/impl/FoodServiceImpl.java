@@ -39,4 +39,8 @@ public class FoodServiceImpl implements FoodService {
     public int deleteExistingFood(int id) {
         return productMapper.deleteExistingFood(id);
     }
+
+    public void process() {
+        
+    }
 }
