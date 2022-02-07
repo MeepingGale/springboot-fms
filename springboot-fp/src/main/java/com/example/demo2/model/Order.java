@@ -16,9 +16,4 @@ public class Order {
     public String name;
     public int quantity;
     public Date date_created;
-
-    @Override
-    public String toString() {
-        return "Order Name: " + name + ", Quantity: " + quantity;
-    }
 }

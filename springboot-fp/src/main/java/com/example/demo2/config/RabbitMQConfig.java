@@ -1,4 +1,4 @@
-package com.example.demo2.configuration;
+package com.example.demo2.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -12,10 +12,22 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
     
     public static final String QUEUE = "food_order_queue";
+    public static final String EXCHANGE = "food_order_exchange";
+    public static final String ROUTING_KEY = "food_order_rkey";
 
     @Bean
     public Queue queue() {
         return new Queue(QUEUE);
+    }
+
+    @Bean
+    public TopicExchange exchange() {
+        return new TopicExchange(EXCHANGE);
+    }
+
+    @Bean
+    public Binding binding(Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
 
     @Bean

@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class ProducerApplication {
+public class FoodConsumerApplication {
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(ProducerApplication.class, args);
+		SpringApplication.run(FoodConsumerApplication.class, args);
 	}
 
 	@Bean
