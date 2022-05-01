@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class FoodController {
 
     @Autowired
@@ -22,35 +23,35 @@ public class FoodController {
 
     private final static String QUEUE_NAME = "food_queue";
 
-    private void callMQ(String message) throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        try (Connection connection = factory.newConnection();
-             Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+    // private void callMQ(String message) throws Exception {
+    //     ConnectionFactory factory = new ConnectionFactory();
+    //     factory.setHost("localhost");
+    //     try (Connection connection = factory.newConnection();
+    //          Channel channel = connection.createChannel()) {
+    //         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes(StandardCharsets.UTF_8));
-            System.out.println(" [PRODUCER] Sent '" + message + "'");
-        }
-    }
+    //         channel.basicPublish("", QUEUE_NAME, null, message.getBytes(StandardCharsets.UTF_8));
+    //         System.out.println(" [PRODUCER] Sent '" + message + "'");
+    //     }
+    // }
 
     @GetMapping("/foods")
     public ArrayList<Food> foods() {
-        try {
-            callMQ("List of food has been displayed.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     callMQ("List of food has been displayed.");
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         return foodService.getAllFood();
     }
 
     @GetMapping("/food/{id}")
     public Food food(@PathVariable int id) {
-        try {
-            callMQ("Food with id (" + id + ") has been displayed.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     callMQ("Food with id (" + id + ") has been displayed.");
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         return foodService.getFoodById(id);
     }
 
@@ -63,11 +64,11 @@ public class FoodController {
 
         foodService.addNewFood(food);
 
-        try {
-            callMQ("A new food has been added.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     callMQ("A new food has been added.");
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
         return "Successfully added into the database.";
     }
@@ -76,11 +77,11 @@ public class FoodController {
     public String updateFood(@RequestBody Food food) {
         int numUpdated = foodService.updateExistingFood(food);
 
-        try {
-            callMQ("Food with id (" + food.id + ") has been updated.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     callMQ("Food with id (" + food.id + ") has been updated.");
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
         return numUpdated > 0 ? "Update successful." : "Update failed. Check if your id is correct.";
     }
@@ -89,11 +90,11 @@ public class FoodController {
     public String deleteFood(@PathVariable int id) {
         int numDeleted = foodService.deleteExistingFood(id);
 
-        try {
-            callMQ("Food with id (" + id + ") has been deleted.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     callMQ("Food with id (" + id + ") has been deleted.");
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
         return numDeleted > 0 ? "Successfully deleted id " + id + "." : "Id doesn't exist.";
     }
